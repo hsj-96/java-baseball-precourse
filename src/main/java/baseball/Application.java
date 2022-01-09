@@ -19,6 +19,17 @@ public class Application {
         }
     }
 
+    // # 입력한 문자가 숫자인지 확인
+    boolean isNumber(String input) {
+        for (int i = 0; i < 3; i++) {
+            if (!Character.isDigit(input.charAt(i)) || input.charAt(i) == '0') {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // # 숫자 중복 체크
     boolean isDuplicated(int[] numbers) {
         int freqCounter[] = new int[9];
