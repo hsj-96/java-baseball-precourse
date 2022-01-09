@@ -1,6 +1,7 @@
 package baseball;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 import nextstep.utils.*;
 
 public class Application {
@@ -70,6 +71,14 @@ public class Application {
         return false;
     }
 
+    // # 플레이어의 숫자 설정
+    void setUserNumber(String numbers) {
+        int[] strToNum = Arrays.stream(numbers.split("")).mapToInt(Integer::parseInt).toArray();
+        for (int i = 0; i < 3; i++) {
+            user[i] = strToNum[i];
+        }
+    }
+
     // # 사용자의 입력을 받음
     String getUserInput() throws Exception {
         String input = Console.readLine();
@@ -80,7 +89,7 @@ public class Application {
 
         return input;
     }
-    
+
     public static void main(String[] args) {
     }
 }
