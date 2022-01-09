@@ -70,6 +70,17 @@ public class Application {
         return false;
     }
 
+    // # 사용자의 입력을 받음
+    String getUserInput() throws Exception {
+        String input = Console.readLine();
+
+        if (!isValid(input)) {
+            throw new Exception("ERROR");
+        }
+
+        return input;
+    }
+    
     public static void main(String[] args) {
     }
 }
