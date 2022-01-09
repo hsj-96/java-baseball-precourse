@@ -121,6 +121,14 @@ public class Application {
         return false;
     }
 
+    // # 게임 값 초기화
+    void resetGame() {
+        Arrays.fill(computer, 0);
+        Arrays.fill(user, 0);
+        strike = 0;
+        ball = 0;
+    }
+    
     public static void main(String[] args) {
         Application game = new Application();
 
