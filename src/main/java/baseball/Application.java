@@ -7,6 +7,8 @@ import nextstep.utils.*;
 public class Application {
     int computer[] = {0, 0, 0};
     int user[] = {0, 0, 0};
+    int strike = 0;
+    int ball = 0;
 
     // # 3자리의 중복없는 난수 생성
     void setComputerRandomNumber() {
@@ -90,6 +92,48 @@ public class Application {
         return input;
     }
 
+    // # 플레이어가 입력한 숫자와 컴퓨터의 숫자를 비교하여 점수를 계산
+    boolean isGameEnd() {
+        for (int i = 0; i < 3; i++) {
+            final int num = user[i];
+            if(IntStream.of(computer).anyMatch(x -> x == num)) {
+                ball++;
+            }
+
+            if (computer[i] == user[i]) {
+                strike++;
+                ball--;
+            }
+        }
+
+        if (strike == 3) {
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+            return true;
+        } else if (strike > 0 && ball > 0) {
+            System.out.println(strike + "스트라이크 " + ball + "볼");
+        } else if (strike > 0 && ball == 0) {
+            System.out.println(strike + "스트라이크");
+        } else if (strike == 0 && ball > 0) {
+            System.out.println(ball + "볼");
+        } else {
+            System.out.println("낫싱");
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
+        Application game = new Application();
+
+        while (true) {
+            System.out.print("숫자를 입력해 주세요 : ");
+            try {
+                String userNumbers = game.getUserInput();
+                game.setUserNumber(userNumbers);
+                game.setComputerRandomNumber();
+            } catch (Exception e) {
+                System.err.println("[ERROR] 잘못 입력 했습니다.");
+                continue;
+            }
+        }
     }
 }
