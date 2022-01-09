@@ -30,6 +30,15 @@ public class Application {
         return true;
     }
 
+    // # 입력한 글자의 수가 3개인지 확인
+    boolean isLengthValid(String input) {
+        if (input.length() != 3) {
+            return false;
+        }
+
+        return true;
+    }
+
     // # 숫자 중복 체크
     boolean isDuplicated(int[] numbers) {
         int freqCounter[] = new int[9];
