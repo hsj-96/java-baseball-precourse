@@ -128,11 +128,36 @@ public class Application {
         strike = 0;
         ball = 0;
     }
-    
+
+    // # 게임 종료 후, 어떻게 할 것인지 결정
+    boolean isGameContinue() {
+        boolean result;
+
+        while (true) {
+            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+            String input = Console.readLine();
+
+            if (!input.equals("1") && !input.equals("2")) {
+                System.err.println("[ERROR] 잘못 입력 했습니다.");
+                continue;
+            }
+
+            if (input.equals("1")) {
+                result = true;
+            } else {
+                result = false;
+            }
+            break;
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         Application game = new Application();
 
         while (true) {
+            game.resetGame();
             System.out.print("숫자를 입력해 주세요 : ");
             try {
                 String userNumbers = game.getUserInput();
@@ -142,6 +167,16 @@ public class Application {
                 System.err.println("[ERROR] 잘못 입력 했습니다.");
                 continue;
             }
+
+            boolean result = true;
+            if(game.isGameEnd()) {
+                result = game.isGameContinue();
+            }
+            if(result == false) {
+                break;
+            }
         }
+
+        System.out.println("게임 끝");
     }
 }
