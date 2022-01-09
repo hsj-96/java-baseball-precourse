@@ -19,6 +19,20 @@ public class Application {
         }
     }
 
+    // # 유효한 문자인지 확인
+    boolean isValid(String input) {
+        if (!isNumber(input) || !isLengthValid(input)) {
+            return false;
+        }
+
+        int[] strToNum = Arrays.stream(input.split("")).mapToInt(Integer::parseInt).toArray();
+        if (isDuplicated(strToNum)) {
+            return false;
+        }
+
+        return true;
+    }
+
     // # 입력한 문자가 숫자인지 확인
     boolean isNumber(String input) {
         for (int i = 0; i < 3; i++) {
