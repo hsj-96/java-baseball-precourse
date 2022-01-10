@@ -24,7 +24,7 @@ public class Application {
 
     // # 유효한 문자인지 확인
     boolean isValid(String input) {
-        if (!isNumber(input) || !isLengthValid(input)) {
+        if (!isLengthValid(input) || !isNumber(input)) {
             return false;
         }
 
@@ -107,6 +107,7 @@ public class Application {
         }
 
         if (strike == 3) {
+            System.out.println(strike + "스트라이크");
             System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
             return true;
         } else if (strike > 0 && ball > 0) {
@@ -138,7 +139,7 @@ public class Application {
             String input = Console.readLine();
 
             if (!input.equals("1") && !input.equals("2")) {
-                System.err.println("[ERROR] 잘못 입력 했습니다.");
+                System.out.println("[ERROR] 잘못 입력 했습니다.");
                 continue;
             }
 
@@ -164,7 +165,7 @@ public class Application {
                 game.setUserNumber(userNumbers);
                 game.setComputerRandomNumber();
             } catch (Exception e) {
-                System.err.println("[ERROR] 잘못 입력 했습니다.");
+                System.out.println("[ERROR] 잘못 입력 했습니다.");
                 continue;
             }
 
