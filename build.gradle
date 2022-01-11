@@ -18,6 +18,7 @@ dependencies {
 }
 
 test {
+    maxHeapSize = "4096m"
     useJUnitPlatform()
     testLogging {
         afterSuite { desc, result ->

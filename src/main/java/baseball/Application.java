@@ -12,13 +12,18 @@ public class Application {
 
     // # 3자리의 중복없는 난수 생성
     void setComputerRandomNumber() {
+        int freqCounter[] = new int[9];
+        Arrays.fill(freqCounter, 0);
+
         for (int i = 0; i < 3; i++) {
             int number = Randoms.pickNumberInRange(1, 9);
-            computer[i] = number;
-        }
+            if (freqCounter[number - 1] > 0) {
+                i--;
+                continue;
+            }
 
-        if (isDuplicated(computer)) {
-            setComputerRandomNumber();
+            freqCounter[number - 1]++;
+            computer[i] = number;
         }
     }
 
@@ -96,7 +101,7 @@ public class Application {
     boolean isGameEnd() {
         for (int i = 0; i < 3; i++) {
             final int num = user[i];
-            if(IntStream.of(computer).anyMatch(x -> x == num)) {
+            if (IntStream.of(computer).anyMatch(x -> x == num)) {
                 ball++;
             }
 
@@ -108,7 +113,8 @@ public class Application {
 
         if (strike == 3) {
             System.out.println(strike + "스트라이크");
-            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+            System.out.println("3개의 숫자를 모두 맞히셨습니다!");
+            System.out.println("게임 끝");
             return true;
         } else if (strike > 0 && ball > 0) {
             System.out.println(strike + "스트라이크 " + ball + "볼");
@@ -124,15 +130,13 @@ public class Application {
 
     // # 게임 값 초기화
     void resetGame() {
-        Arrays.fill(computer, 0);
-        Arrays.fill(user, 0);
         strike = 0;
         ball = 0;
     }
 
     // # 게임 종료 후, 어떻게 할 것인지 결정
-    boolean isGameContinue() {
-        boolean result;
+    int isGameContinue() {
+        int result;
 
         while (true) {
             System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
@@ -143,11 +147,7 @@ public class Application {
                 continue;
             }
 
-            if (input.equals("1")) {
-                result = true;
-            } else {
-                result = false;
-            }
+            result = input.charAt(0) - '0';
             break;
         }
 
@@ -156,24 +156,28 @@ public class Application {
 
     public static void main(String[] args) {
         Application game = new Application();
+        game.setComputerRandomNumber();
 
         while (true) {
             game.resetGame();
-            System.out.print("숫자를 입력해 주세요 : ");
+            System.out.println("숫자를 입력해 주세요 : ");
             try {
                 String userNumbers = game.getUserInput();
                 game.setUserNumber(userNumbers);
-                game.setComputerRandomNumber();
             } catch (Exception e) {
                 System.out.println("[ERROR] 잘못 입력 했습니다.");
                 continue;
             }
 
-            boolean result = true;
-            if(game.isGameEnd()) {
-                result = game.isGameContinue();
+            int state = 0;
+            if (game.isGameEnd()) {
+                state = game.isGameContinue();
             }
-            if(result == false) {
+
+            if(state == 1) { // 맞추고, 새로 시작할 때
+                game.setComputerRandomNumber();
+            }
+            else if(state == 2) { // 맞추고, 게임 종료
                 break;
             }
         }
