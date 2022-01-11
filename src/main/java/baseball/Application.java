@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.stream.IntStream;
 import nextstep.utils.*;
 
-public class Application {
+class Game {
     int computer[] = {0, 0, 0};
     int user[] = {0, 0, 0};
     int strike = 0;
@@ -87,11 +87,11 @@ public class Application {
     }
 
     // # 사용자의 입력을 받음
-    String getUserInput() throws Exception {
+    String getUserInput() {
         String input = Console.readLine();
 
         if (!isValid(input)) {
-            throw new Exception("ERROR");
+            throw new IllegalArgumentException("ERROR");
         }
 
         return input;
@@ -123,15 +123,10 @@ public class Application {
         } else if (strike == 0 && ball > 0) {
             System.out.println(ball + "볼");
         } else {
-            System.out.println("낫싱");
+            System.out.print("낫싱");
         }
-        return false;
-    }
 
-    // # 게임 값 초기화
-    void resetGame() {
-        strike = 0;
-        ball = 0;
+        return false;
     }
 
     // # 게임 종료 후, 어떻게 할 것인지 결정
@@ -154,8 +149,16 @@ public class Application {
         return result;
     }
 
+    // # 게임 값 초기화
+    void resetGame() {
+        strike = 0;
+        ball = 0;
+    }
+}
+
+public class Application {
     public static void main(String[] args) {
-        Application game = new Application();
+        Game game = new Game();
         game.setComputerRandomNumber();
 
         while (true) {
@@ -164,7 +167,8 @@ public class Application {
             try {
                 String userNumbers = game.getUserInput();
                 game.setUserNumber(userNumbers);
-            } catch (Exception e) {
+            }
+            catch (IllegalArgumentException e) { // NoSuchElementException은 처리하지 말았어야함 (테스트코드에서 처리 하기 때문)
                 System.out.println("[ERROR] 잘못 입력 했습니다.");
                 continue;
             }
