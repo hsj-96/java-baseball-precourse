@@ -8,20 +8,38 @@ public class Judgement {
         final List<Integer> playerNumbers = player.getNumbers();
 
         // 볼의 개수
+        int correctCount = correctCount(computerNumbers, playerNumbers);
+        int strike = countStrike(computerNumbers, playerNumbers);
+        int ball = correctCount - strike;
 
-        // 스트라이크 개수
+        if (correctCount == 0) {
+            return "낫싱";
+        }
 
-        // 볼의 개수 = 볼의 개수 - 스트라이크 개수
-
-        return "1스트라이크";
+        return strike + "스트라이크 " + ball + "볼";
     }
 
     private int correctCount(List<Integer> computer, List<Integer> player) {
         int count = 0;
-        for (Integer number : computer) {
-            computer.contains(number);
-            count++;
+        for (Integer number : player) {
+            if (computer.contains(number)) {
+                count++;
+            }
         }
         return count;
+    }
+
+    private int countStrike(List<Integer> computer, List<Integer> player) {
+        int count = 0;
+        for (int index = 0; index < player.size(); index++) {
+            if(hasPlace(computer, index, player.get(index))) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    private boolean hasPlace(List<Integer> computer, int index, int number) {
+        return computer.get(index) == number;
     }
 }

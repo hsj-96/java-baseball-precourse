@@ -17,7 +17,7 @@ public class Application {
     public static void main(String[] args) {
         NumberGenerator generator = new NumberGenerator();
         final List<Integer> numbers = generator.createRandomNumber();
-        System.out.println(numbers);
+        System.out.println("정답: " + numbers);
 
         Balls computer = new Balls(numbers);
         Balls player = new Balls(Arrays.asList(3, 2, 7));
