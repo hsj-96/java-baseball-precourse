@@ -19,6 +19,10 @@ public class Application {
         final List<Integer> numbers = generator.createRandomNumber();
         System.out.println(numbers);
 
-        Balls balls = new Balls(numbers);
+        Balls computer = new Balls(numbers);
+        Balls player = new Balls(Arrays.asList(3, 2, 7));
+
+        Judgement judgement = new Judgement();
+        System.out.println(judgement.compare(computer, player));
     }
 }
