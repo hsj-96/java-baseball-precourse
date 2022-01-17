@@ -3,8 +3,9 @@
 ## 기능 목록
 
 - [X] 1부터 9까지의 서로 다른 임의의 수 3개를 생성한다. - NumberGenerator#createRandomNumber()
-- [ ] 숫자 외의 문자는 올 수 없다. - Balls#validateOnlyNumber()
-- [ ] 3개의 숫자는 중복될 수 없다. - Balls#validateDuplicatedNumber()
+- [X] 숫자 외의 문자는 올 수 없다. - Balls#validateOnlyNumber()
+- [X] 3개의 숫자는 중복될 수 없다. - Balls#validateDuplicatedNumber()
+- [X] 숫자는 1부터 9까지다. - Balls#()
 - [ ] 컴퓨터 수(3자리)와 플레이어 수(3자리)를 비교할 수 있다. - Judgement#compare()
   - [ ] 같은 수가 다른 자리에 있으면 볼이다.
   - [ ] 같은 수가 같은 자리에 있으면 스트라이크다.
